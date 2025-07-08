@@ -19,6 +19,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
+@app.before_first_request
+def crear_tablas():
+    db.create_all()
+
 @app.route('/')
 def index():
     if 'username' not in session:
