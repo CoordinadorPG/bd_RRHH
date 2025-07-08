@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<script>
+  function togglePassword() {
+    const input = document.getElementById("nueva_clave");
+    const icono = document.getElementById("icono-ojo");
+
+    if (input.type === "password") {
+      input.type = "text";
+      icono.classList.remove("fa-eye");
+      icono.classList.add("fa-eye-slash");
+    } else {
+      input.type = "password";
+      icono.classList.remove("fa-eye-slash");
+      icono.classList.add("fa-eye");
+    }
+  }
+</script>
+<script>
+  function togglePasswordCrear() {
+    const input = document.getElementById("pwd_usuario");
+    const icono = document.getElementById("icono-ojo-crear");
+
+    if (input.type === "password") {
+      input.type = "text";
+      icono.classList.remove("fa-eye");
+      icono.classList.add("fa-eye-slash");
+    } else {
+      input.type = "password";
+      icono.classList.remove("fa-eye-slash");
+      icono.classList.add("fa-eye");
+    }
+  }
+</script>
+
+<body>
+  <h1>Bienvenido, {{ username }}</h1>
+  <p>Tu rol es: <strong>{{ rol }}</strong></p>
+  <div class="layout">
+  <div class="menu-lateral">
+  {% if 'temperatura' in pestañas %}
+    <button onclick="mostrar('temperatura')">Temperatura</button>
+  {% endif %}
+  {% if 'aceite' in pestañas %}
+    <button onclick="mostrar('aceite')">Aceite Quemado</button>
+  {% endif %}
+  {% if 'limpieza' in pestañas %}
+    <button onclick="mostrar('limpieza')">Limpieza</button>
+  {% endif %}
+  {% if 'bpm' in pestañas %}
+    <button onclick="mostrar('bpm')">BPM</button>
+  {% endif %}
+  {% if 'recepcion' in pestañas %}
+    <button onclick="mostrar('recepcion')">Recepción</button>
+  {% endif %}
+  {% if rol == 'admin' %}
+    <button onclick="mostrar('visualizacion')">Visualización</button>
+  {% endif %}
+  {% if rol == 'admin' %}
+	<button onclick="mostrar('crear_usuario')">Crear Usuario</button>
+  {% endif %}
+  {% if rol == 'admin' %}
+	<button onclick="mostrar('gestionar_usuarios')">Gestionar Usuarios</button>
+  {% endif %}
+
+  </div>
+
+  <!-- Temperatura -->
+  <div id="temperatura" class="form-section">
+    <h3>Temperatura</h3>
+    <form method="post" action="/guardar_temperatura">
+      <input type="date" name="fecha" required>
+      <input type="text" name="referencia_equipo" placeholder="Referencia o # equipo" required>
+      <input type="number" step="0.01" name="toma_inicio" placeholder="Toma inicio jornada">
+      <input type="number" step="0.01" name="toma_mediodia" placeholder="Toma media jornada">
+      <input type="number" step="0.01" name="toma_final" placeholder="Toma final jornada">
+      <input type="text" name="responsable" placeholder="Responsable" required>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+
+  <!-- Aceite Quemado -->
+  <div id="aceite" class="form-section">
+    <h3>Aceite Quemado</h3>
+    <form method="post" action="/guardar_aceite">
+      <input type="date" name="fecha" required>
+      <input type="text" name="nombre_freidora" placeholder="Nombre o # freidora" required>
+      <label>Acción realizada</label>
+      <div class="radio-group">
+        <label><input type="radio" name="accion" value="filtracion"> Filtración</label>
+        <label><input type="radio" name="accion" value="cambio"> Cambio de aceite</label>
+      </div>
+      <input type="text" name="responsable" placeholder="Responsable" required>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+
+  <!-- Limpieza -->
+  <div id="limpieza" class="form-section">
+    <h3>Limpieza</h3>
+    <form method="post" action="/guardar_limpieza">
+      <input type="date" name="fecha" required>
+      <label>Área</label>
+      <div class="radio-group">
+        <label><input type="radio" name="tipo_area" value="trampa_grasas"> Trampa de grasas</label>
+        <label><input type="radio" name="tipo_area" value="tanque_aguas"> Tanque de aguas</label>
+      </div>
+      <label>Acciones</label>
+      <div class="radio-group">
+        <label><input type="checkbox" name="limpieza"> Limpieza</label>
+        <label><input type="checkbox" name="desinfeccion"> Desinfección</label>
+      </div>
+      <input type="text" name="responsable" placeholder="Responsable" required>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+
+  <!-- BPM -->
+  <div id="bpm" class="form-section">
+    <h3>BPM</h3>
+    <form method="post" action="/guardar_bpm">
+      <input type="date" name="fecha" required>
+      <input type="text" name="nombre_aux" placeholder="Nombre del auxiliar" required>
+
+      {% for campo, label in [
+        ['barba_maquillaje', 'Barba / Maquillaje'],
+        ['cabello_gorro', 'Cabello / Gorro'],
+        ['ausencia_heridas', 'Ausencia de heridas'],
+        ['joyas_accesorios', 'Joyas / Accesorios'],
+        ['unas_manos', 'Uñas / Manos'],
+        ['uniforme', 'Uniforme'],
+        ['zapatos', 'Zapatos'],
+		['Perfumes', 'Perfumes']
+      ] %}
+        <label>{{ label }}</label>
+        <div class="radio-group">
+          <label><input type="radio" name="{{ campo }}" value="sí"> Sí</label>
+          <label><input type="radio" name="{{ campo }}" value="no"> No</label>
+        </div>
+		
+      {% endfor %}
+
+      <textarea name="observaciones" placeholder="Observaciones"></textarea>
+      <input type="text" name="responsable" placeholder="Responsable" required>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+
+  <!-- Recepción -->
+  <div id="recepcion" class="form-section">
+    <h3>Recepción Materias Primas</h3>
+    <form method="post" action="/guardar_recepcion">
+      <input type="number" name="temperatura" placeholder="Temperatura (°C)" required>
+      <input type="number" name="lote" placeholder="Lote" required>
+      <input type="date" name="fecha_vencimiento" required>
+      <input type="number" name="num_factura" placeholder="N° factura" required>
+
+      <label>Certificado de calidad</label>
+      <div class="radio-group">
+        <label><input type="radio" name="certificado_calidad" value="sí"> Sí</label>
+        <label><input type="radio" name="certificado_calidad" value="no"> No</label>
+      </div>
+
+      <label>¿Se acepta?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="se_acepta" value="sí"> Sí</label>
+        <label><input type="radio" name="se_acepta" value="no"> No</label>
+      </div>
+
+      <label>Carro/moto limpio</label>
+      <div class="radio-group">
+        <label><input type="radio" name="transporte_carro_moto" value="sí"> Sí</label>
+        <label><input type="radio" name="transporte_carro_moto" value="no"> No</label>
+      </div>
+
+      <label>Termoking / Pilas</label>
+      <div class="radio-group">
+        <label><input type="radio" name="transporte_termoking" value="sí"> Sí</label>
+        <label><input type="radio" name="transporte_termoking" value="no"> No</label>
+      </div>
+
+      <input type="text" name="responsable" placeholder="Responsable" required>
+      <textarea name="observaciones" placeholder="Observaciones"></textarea>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+
+  <!-- Visualización -->
+  <div id="visualizacion" class="form-section">
+    <h3>Visualización de registros</h3>
+    <form method="get" action="/visualizar">
+      <select name="tabla">
+        <option value="temperatura">Temperatura</option>
+        <option value="aceite">Aceite Quemado</option>
+        <option value="limpieza">Limpieza</option>
+        <option value="bpm">BPM</option>
+        <option value="recepcion">Recepción</option>
+      </select>
+      <button type="submit">Filtrar</button>
+    </form>
+
+    {% if registros and columnas %}
+	<a href="{{ url_for('exportar_excel') }}?tabla={{ request.args.get('tabla') }}" class="link-button">
+  Exportar a Excel
+</a>
+    <table border="1" style="margin-top: 20px;">
+      <thead>
+        <tr>
+          {% for col in columnas %}
+            <th>{{ titulos.get(col, col) }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for fila in registros %}
+          <tr>
+            {% for col in columnas %}
+              <td>{{ fila[col] }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+  
+  <!-- Crear Usuario -->
+	<div id="crear_usuario" class="form-section">
+	  <h3>Crear Nuevo Usuario</h3>
+	  <form method="post" action="/crear_usuario">
+		<input type="text" name="nom_usuario" placeholder="Nombre de usuario" required
+       oninput="this.value = this.value.replace(/\s/g, '')">
+		<div style="position: relative;">
+		  <input type="password" name="pwd_usuario" id="pwd_usuario" placeholder="Contraseña" required>
+		  <i class="fa-solid fa-eye" id="icono-ojo-crear"
+			 onclick="togglePasswordCrear()"
+			 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+		  </i>
+		</div>
+		<label for="rol_usuario">Rol:</label>
+		<select name="rol_usuario" required>
+		  <option value="" disabled selected>Seleccione un rol</option>
+		  <option value="admin">Admin</option>
+		  <option value="cocina">Cocina</option>
+		  <option value="barra">Barra</option>
+		  <option value="bodega">Bodega</option>
+		</select>
+		<button type="submit">Crear</button>
+	  </form>
+	</div>
+	
+	<!-- Gestionar Usuarios -->
+	<div id="gestionar_usuarios" class="form-section">
+	
+	  <h3>Actualizar o Eliminar Usuarios</h3>
+
+		{% if mensaje %}
+		  <div class="alert alert-success">{{ mensaje }}</div>
+		{% endif %}
+		{% if error %}
+		  <div class="alert alert-danger">{{ error }}</div>
+		{% endif %}
+	  <form method="post" action="/gestionar_usuarios">
+		<label for="usuario_id">Seleccionar usuario:</label>
+		<select name="usuario_id" id="usuario_id" required>
+	  <option value="" disabled selected>Seleccione un usuario</option>
+	  {% for u in usuarios %}
+		  <option value="{{ u.id_usuario }}">{{ u.nom_usuario }} ({{ u.rol_usuario }})</option>
+		{% endfor %}
+	</select>
+
+		<br><br>
+		<label>Nueva contraseña:</label>
+		<div style="position: relative;">
+		  <input type="password" name="nueva_clave" id="nueva_clave" placeholder="Dejar vacío si no va a cambiar">
+		  <i class="fa-solid fa-eye" id="icono-ojo"
+			 onclick="togglePassword()"
+			 style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+		  </i>
+		</div>
+
+		<br><br>
+		<button type="submit" name="accion" value="actualizar">Actualizar contraseña</button>
+		<button type="submit" name="accion" value="eliminar" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar usuario</button>
+	  </form>
+	</div>
+
+  <br>
+  <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+
+  <script>
+    function mostrar(id) {
+      document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+      const activa = document.getElementById(id);
+      if (activa) activa.classList.add('active');
+    }
+    {% if pestaña_activa %}mostrar('{{ pestaña_activa }}');{% else %}mostrar('temperatura');{% endif %}
+  </script>
+  <script>
+  document.querySelectorAll('#gestionar_usuarios form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      document.getElementById('gestionar_usuarios').classList.add('active');
+    });
+  });
+</script>
+  </div>
+</body>
+</html>
