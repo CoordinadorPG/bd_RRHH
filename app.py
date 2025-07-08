@@ -16,15 +16,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
-tablas_creadas = False
+@app.route('/setup_admin')
+def setup_admin():
+    if Usuario.query.filter_by(nom_usuario='admin').first():
+        return "⚠️ El usuario 'admin' ya existe."
 
-@app.before_request
-def crear_tablas_si_no_existen():
-    global tablas_creadas
-    if not tablas_creadas:
-        db.create_all()
-        tablas_creadas = True
-
+    hashed_pwd = bcrypt.hash('1234')  # Puedes cambiar la clave aquí si quieres
+    nuevo_admin = Usuario(
+        nom_usuario='admin',
+        pwd_usuario=hashed_pwd,
+        rol_usuario='admin'
+    )
+    db.session.add(nuevo_admin)
+    db.session.commit()
+    return "✅ Usuario 'admin' creado con éxito (clave: 1234)"
 
 @app.route('/')
 def index():
