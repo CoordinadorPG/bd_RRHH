@@ -19,9 +19,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
-@app.before_first_request
-def crear_tablas():
-    db.create_all()
+tablas_creadas = False
+
+@app.before_request
+def crear_tablas_si_no_existen():
+    global tablas_creadas
+    if not tablas_creadas:
+        db.create_all()
+        tablas_creadas = True
+
 
 @app.route('/')
 def index():
