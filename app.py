@@ -16,21 +16,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
-@app.route('/setup_admin')
-def setup_admin():
-    if Usuario.query.filter_by(nom_usuario='admin').first():
-        return "⚠️ El usuario 'admin' ya existe."
-
-    hashed_pwd = bcrypt.hash('1234')  # Puedes cambiar la clave aquí si quieres
-    nuevo_admin = Usuario(
-        nom_usuario='admin',
-        pwd_usuario=hashed_pwd,
-        rol_usuario='admin'
-    )
-    db.session.add(nuevo_admin)
-    db.session.commit()
-    return "✅ Usuario 'admin' creado con éxito (clave: 1234)"
-
 @app.route('/')
 def index():
     if 'username' not in session:
