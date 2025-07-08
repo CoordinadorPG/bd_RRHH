@@ -1,6 +1,7 @@
 import bcrypt
 import pandas as pd
 import io
+import os
 
 from flask import Flask, render_template, request, redirect, url_for, session, send_file, flash
 from models import db, Usuario, Temperatura, AceiteQuemado, Limpieza, BPM, Recepcion
