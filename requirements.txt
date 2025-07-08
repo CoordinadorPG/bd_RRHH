@@ -1,3 +1,7 @@
 Flask
-Flask-SQLAlchemy
+Flask_SQLAlchemy
 psycopg2-binary
+bcrypt
+passlib
+pandas
+gunicorn
