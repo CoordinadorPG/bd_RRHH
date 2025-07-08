@@ -5,9 +5,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, session, send_file, flash
 from models import db, Usuario, Temperatura, AceiteQuemado, Limpieza, BPM, Recepcion
 from datetime import datetime
-from passlib.context import CryptContext
 from passlib.hash import bcrypt
-pwd_context = CryptContext(schemes=["scrypt"], deprecated="auto")
 
 app = Flask(__name__)
 app.secret_key = 'clave_secreta_segura'
