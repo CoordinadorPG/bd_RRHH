@@ -43,8 +43,10 @@
     }
 
     .logout-form {
-      height: auto;
-      display: inline-block;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     .logout-form button {
@@ -355,6 +357,9 @@
 		<button type="submit" name="accion" value="eliminar" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar usuario</button>
 	  </form>
 	</div>
+
+  <br>
+  <a href="{{ url_for('logout') }}">Cerrar sesión</a>
 
   <script>
     function mostrar(id) {
