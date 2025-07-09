@@ -1,0 +1,38 @@
+<!-- secciones/visualizacion.html -->
+<div id="visualizacion" class="form-section">
+  <h3>Visualización de registros</h3>
+  <form method="get" action="/visualizar">
+    <select name="tabla">
+      <option value="temperatura">Temperatura</option>
+      <option value="aceite">Aceite Quemado</option>
+      <option value="limpieza">Limpieza</option>
+      <option value="bpm">BPM</option>
+      <option value="recepcion">Recepción</option>
+    </select>
+    <button type="submit">Filtrar</button>
+  </form>
+
+  {% if registros and columnas %}
+    <a href="{{ url_for('exportar_excel') }}?tabla={{ request.args.get('tabla') }}" class="link-button">
+      Exportar a Excel
+    </a>
+    <table border="1" style="margin-top: 20px;">
+      <thead>
+        <tr>
+          {% for col in columnas %}
+            <th>{{ titulos.get(col, col) }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for fila in registros %}
+          <tr>
+            {% for col in columnas %}
+              <td>{{ fila[col] }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>
