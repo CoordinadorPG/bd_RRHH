@@ -1,0 +1,37 @@
+<div id="recepcion" class="form-section">
+  <h3>Recepción Materias Primas</h3>
+  <form method="post" action="/guardar_recepcion">
+    <input type="number" name="temperatura" placeholder="Temperatura (°C)" required>
+    <input type="number" name="lote" placeholder="Lote" required>
+    <input type="date" name="fecha_vencimiento" required>
+    <input type="number" name="num_factura" placeholder="N° factura" required>
+
+    <label>Certificado de calidad</label>
+    <div class="radio-group">
+      <label><input type="radio" name="certificado_calidad" value="sí"> Sí</label>
+      <label><input type="radio" name="certificado_calidad" value="no"> No</label>
+    </div>
+
+    <label>¿Se acepta?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="se_acepta" value="sí"> Sí</label>
+      <label><input type="radio" name="se_acepta" value="no"> No</label>
+    </div>
+
+    <label>Carro/moto limpio</label>
+    <div class="radio-group">
+      <label><input type="radio" name="transporte_carro_moto" value="sí"> Sí</label>
+      <label><input type="radio" name="transporte_carro_moto" value="no"> No</label>
+    </div>
+
+    <label>Termoking / Pilas</label>
+    <div class="radio-group">
+      <label><input type="radio" name="transporte_termoking" value="sí"> Sí</label>
+      <label><input type="radio" name="transporte_termoking" value="no"> No</label>
+    </div>
+
+    <input type="text" name="responsable" placeholder="Responsable" required>
+    <textarea name="observaciones" placeholder="Observaciones"></textarea>
+    <button type="submit">Guardar</button>
+  </form>
+</div>

@@ -1,0 +1,14 @@
+<div id="aceite" class="form-section">
+  <h3>Aceite Quemado</h3>
+  <form method="post" action="/guardar_aceite">
+    <input type="date" name="fecha" required>
+    <input type="text" name="nombre_freidora" placeholder="Nombre o # freidora" required>
+    <label>Acción realizada</label>
+    <div class="radio-group">
+      <label><input type="radio" name="accion" value="filtracion"> Filtración</label>
+      <label><input type="radio" name="accion" value="cambio"> Cambio de aceite</label>
+    </div>
+    <input type="text" name="responsable" placeholder="Responsable" required>
+    <button type="submit">Guardar</button>
+  </form>
+</div>

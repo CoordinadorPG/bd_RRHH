@@ -1,0 +1,28 @@
+<div id="bpm" class="form-section">
+  <h3>BPM</h3>
+  <form method="post" action="/guardar_bpm">
+    <input type="date" name="fecha" required>
+    <input type="text" name="nombre_aux" placeholder="Nombre del auxiliar" required>
+
+    {% for campo, label in [
+      ['barba_maquillaje', 'Barba / Maquillaje'],
+      ['cabello_gorro', 'Cabello / Gorro'],
+      ['ausencia_heridas', 'Ausencia de heridas'],
+      ['joyas_accesorios', 'Joyas / Accesorios'],
+      ['unas_manos', 'Uñas / Manos'],
+      ['uniforme', 'Uniforme'],
+      ['zapatos', 'Zapatos'],
+      ['perfumes', 'Perfumes']
+    ] %}
+      <label>{{ label }}</label>
+      <div class="radio-group">
+        <label><input type="radio" name="{{ campo }}" value="sí"> Sí</label>
+        <label><input type="radio" name="{{ campo }}" value="no"> No</label>
+      </div>
+    {% endfor %}
+
+    <textarea name="observaciones" placeholder="Observaciones"></textarea>
+    <input type="text" name="responsable" placeholder="Responsable" required>
+    <button type="submit">Guardar</button>
+  </form>
+</div>

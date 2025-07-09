@@ -1,0 +1,20 @@
+<!-- secciones/crear_usuario.html -->
+<div id="crear_usuario" class="form-section">
+  <h3>Crear Nuevo Usuario</h3>
+  <form method="post" action="/crear_usuario">
+    <input type="text" name="nom_usuario" placeholder="Nombre de usuario" required oninput="this.value = this.value.replace(/\s/g, '')">
+    <div style="position: relative;">
+      <input type="password" name="pwd_usuario" id="pwd_usuario" placeholder="Contraseña" required>
+      <i class="fa-solid fa-eye" id="icono-ojo-crear" onclick="togglePasswordCrear()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+    </div>
+    <label for="rol_usuario">Rol:</label>
+    <select name="rol_usuario" required>
+      <option value="" disabled selected>Seleccione un rol</option>
+      <option value="admin">Admin</option>
+      <option value="cocina">Cocina</option>
+      <option value="barra">Barra</option>
+      <option value="bodega">Bodega</option>
+    </select>
+    <button type="submit">Crear</button>
+  </form>
+</div>

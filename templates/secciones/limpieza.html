@@ -1,0 +1,18 @@
+<div id="limpieza" class="form-section">
+  <h3>Limpieza</h3>
+  <form method="post" action="/guardar_limpieza">
+    <input type="date" name="fecha" required>
+    <label>Área</label>
+    <div class="radio-group">
+      <label><input type="radio" name="tipo_area" value="trampa_grasas"> Trampa de grasas</label>
+      <label><input type="radio" name="tipo_area" value="tanque_aguas"> Tanque de aguas</label>
+    </div>
+    <label>Acciones</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="limpieza"> Limpieza</label>
+      <label><input type="checkbox" name="desinfeccion"> Desinfección</label>
+    </div>
+    <input type="text" name="responsable" placeholder="Responsable" required>
+    <button type="submit">Guardar</button>
+  </form>
+</div>

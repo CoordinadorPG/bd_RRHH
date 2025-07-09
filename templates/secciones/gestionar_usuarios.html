@@ -1,0 +1,31 @@
+<!-- secciones/gestionar_usuarios.html -->
+<div id="gestionar_usuarios" class="form-section">
+  <h3>Actualizar o Eliminar Usuarios</h3>
+  {% if mensaje %}
+    <div class="alert alert-success">{{ mensaje }}</div>
+  {% endif %}
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" action="/gestionar_usuarios">
+    <label for="usuario_id">Seleccionar usuario:</label>
+    <select name="usuario_id" id="usuario_id" required>
+      <option value="" disabled selected>Seleccione un usuario</option>
+      {% for u in usuarios %}
+        <option value="{{ u.id_usuario }}">{{ u.nom_usuario }} ({{ u.rol_usuario }})</option>
+      {% endfor %}
+    </select>
+
+    <br><br>
+    <label>Nueva contraseña:</label>
+    <div style="position: relative;">
+      <input type="password" name="nueva_clave" id="nueva_clave" placeholder="Dejar vacío si no va a cambiar">
+      <i class="fa-solid fa-eye" id="icono-ojo" onclick="togglePassword()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+    </div>
+
+    <br><br>
+    <button type="submit" name="accion" value="actualizar">Actualizar contraseña</button>
+    <button type="submit" name="accion" value="eliminar" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar usuario</button>
+  </form>
+</div>
