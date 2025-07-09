@@ -66,8 +66,6 @@ def index():
         error=error
     )
 
-
-
 @app.route('/crear_usuario', methods=['GET', 'POST'])
 def crear_usuario():
     if 'username' not in session or session.get('rol') != 'admin':
@@ -149,16 +147,22 @@ def logout():
 
 @app.route('/guardar_temperatura', methods=['POST'])
 def guardar_temperatura():
-    t = Temperatura(
-        fecha=request.form['fecha'],
-        referencia_equipo=request.form['referencia_equipo'],
-        toma_inicio=request.form['toma_inicio'],
-        toma_mediodia=request.form['toma_mediodia'],
-        toma_final=request.form['toma_final'],
-        responsable=request.form['responsable']
-    )
-    db.session.add(t)
-    db.session.commit()
+    try:
+        t = Temperatura(
+            fecha=request.form['fecha'],
+            referencia_equipo=request.form['referencia_equipo'],
+            toma_inicio=request.form.get('toma_inicio') or None,
+            toma_mediodia=request.form.get('toma_mediodia') or None,
+            toma_final=request.form.get('toma_final') or None,
+            responsable=request.form['responsable']
+        )
+        db.session.add(t)
+        db.session.commit()
+        flash('Registro de temperatura guardado correctamente.')
+    except Exception as e:
+        db.session.rollback()
+        print('Error al guardar temperatura:', e)  # ← Mira esto en tu terminal
+        flash('Ocurrió un error al guardar temperatura.')
     return redirect(url_for('index'))
 
 @app.route('/guardar_aceite', methods=['POST'])
