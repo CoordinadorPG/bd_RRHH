@@ -1,9 +1,9 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- tu CSS -->
   <style>
     body {
       margin: 0;
@@ -22,28 +22,19 @@
 
     .nav-links {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      flex-direction: column;
+      gap: 5px;
     }
 
-    .nav-links a {
+    .nav-links span {
       color: white;
-      text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-    }
-
-    .nav-links a:hover {
-      background-color: #555;
     }
 
     .logout-area {
-      flex: 1;
       text-align: right;
     }
 
     .logout-form {
-      height: auto;
       display: inline-block;
     }
 
@@ -58,15 +49,13 @@
 
     @media (max-width: 768px) {
       .nav-links {
-        flex-direction: column;
         align-items: flex-start;
-        width: 100%;
       }
 
       .logout-area {
-        text-align: left;
         width: 100%;
         margin-top: 10px;
+        text-align: left;
       }
     }
   </style>
@@ -103,8 +92,18 @@
     }
   }
 </script>
-
 <body>
+  <div class="navbar">
+    <div class="nav-links">
+      <span>Bienvenido, {{ username }}</span>
+      <span>Rol: <strong>{{ rol }}</strong></span>
+    </div>
+    <div class="logout-area">
+      <form class="logout-form" method="GET" action="{{ url_for('logout') }}">
+        <button type="submit">Cerrar sesión</button>
+      </form>
+    </div>
+  </div>
   <h1>Bienvenido, {{ username }}</h1>
   <p>Tu rol es: <strong>{{ rol }}</strong></p>
   <div class="layout">
@@ -357,7 +356,6 @@
 	</div>
 
   <br>
-  <a href="{{ url_for('logout') }}">Cerrar sesión</a>
 
   <script>
     function mostrar(id) {
