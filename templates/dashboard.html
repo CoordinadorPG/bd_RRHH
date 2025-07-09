@@ -105,17 +105,6 @@
 </script>
 
 <body>
-  <div class="navbar">
-    <div class="nav-links">
-      <span>Bienvenido, {{ username }}</span>
-      <span>Rol: <strong>{{ rol }}</strong></span>
-    </div>
-    <div class="logout-area">
-      <form class="logout-form" method="GET" action="{{ url_for('logout') }}">
-        <button type="submit">Cerrar sesión</button>
-      </form>
-    </div>
-  </div>
   <h1>Bienvenido, {{ username }}</h1>
   <p>Tu rol es: <strong>{{ rol }}</strong></p>
   <div class="layout">
