@@ -46,12 +46,24 @@
     }
 
     .menu-lateral {
-      width: 200px;
-      background-color: #f1f1f1;
-      padding: 15px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      justify-content: space-between;
+      width: 220px;
+      background-color: #f1f1f1;
+      padding: 10px;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .logo-container img {
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
     }
 
     .menu-lateral button {
@@ -124,6 +136,9 @@
       {% if rol == 'admin' %}<button onclick="mostrar('visualizacion')">Visualización</button>{% endif %}
       {% if rol == 'admin' %}<button onclick="mostrar('crear_usuario')">Crear Usuario</button>{% endif %}
       {% if rol == 'admin' %}<button onclick="mostrar('gestionar_usuarios')">Gestionar Usuarios</button>{% endif %}
+    </div>
+    <div class="logo-container">
+      <img src="https://callejardin.com/wp-content/uploads/2023/03/logo-calle-jardin.png" alt="Logo Calle Jardín">
     </div>
 
     <div class="form-area">
