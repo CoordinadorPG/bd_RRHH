@@ -1,11 +1,46 @@
-/* General */
+/* === GENERALES === */
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* NAVBAR */
+/* === LOGIN === */
+.login-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+}
+
+.login-container {
+  background-color: white;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.login-container input,
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.login-container .error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+/* === DASHBOARD === */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -33,13 +68,11 @@ body {
   background-color: #d32f2f;
 }
 
-/* MAIN CONTENT */
 .main-content {
   display: flex;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 50px); /* ajusta según el alto del navbar */
 }
 
-/* SIDEBAR */
 .menu-lateral {
   display: flex;
   flex-direction: column;
@@ -47,6 +80,7 @@ body {
   width: 220px;
   background-color: #f1f1f1;
   padding: 10px;
+  box-sizing: border-box;
 }
 
 .menu-lateral .botones {
@@ -78,7 +112,7 @@ body {
   object-fit: contain;
 }
 
-/* FORM SECTIONS */
+/* === FORMULARIOS === */
 .form-section {
   display: none;
   padding: 20px;
@@ -88,6 +122,13 @@ body {
 
 .form-section.active {
   display: block;
+}
+
+.radio-group, .checkbox-group {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 input, select, textarea, button {
@@ -102,93 +143,29 @@ label {
   margin-top: 10px;
 }
 
-.radio-group, .checkbox-group {
-  margin-bottom: 10px;
-  display: flex;
-  gap: 10px;
-}
-
-.radio-group label, .checkbox-group label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-/* ALERTAS */
+/* === MENSAJES FLASH === */
 .alert {
   padding: 10px;
+  margin: 10px;
   border-radius: 5px;
-  margin-bottom: 10px;
 }
 
 .alert-success {
   background-color: #d4edda;
-  color: #155724;
   border: 1px solid #c3e6cb;
 }
 
 .alert-error {
   background-color: #f8d7da;
-  color: #721c24;
   border: 1px solid #f5c6cb;
 }
 
 .alert-warning {
   background-color: #fff3cd;
-  color: #856404;
   border: 1px solid #ffeeba;
 }
 
-/* LOGIN CENTRADO */
-body.login-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.login-container {
-  background: white;
-  padding: 30px 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.login-container h1 {
-  margin-bottom: 20px;
-}
-
-.login-container input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  box-sizing: border-box;
-}
-
-.login-container button {
-  padding: 10px 20px;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.login-container button:hover {
-  background-color: #555;
-}
-
-.login-container .error {
-  background-color: #f8d7da;
-  color: #842029;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #f5c2c7;
-}
-
-/* RESPONSIVE */
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
   .main-content {
     flex-direction: column;
@@ -197,21 +174,38 @@ body.login-page {
   .menu-lateral {
     flex-direction: row;
     flex-wrap: wrap;
-    height: auto;
     width: 100%;
+    height: auto;
     justify-content: flex-start;
+  }
+
+  .menu-lateral .botones {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
   }
 
   .logo-container {
     display: none;
   }
 
-  .form-section {
-    padding: 10px;
-  }
-
   .navbar {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 20px;
+    margin: 10px;
+    max-width: 90%;
+  }
+
+  .login-container input,
+  .login-container button {
+    font-size: 14px;
+    padding: 10px;
   }
 }
