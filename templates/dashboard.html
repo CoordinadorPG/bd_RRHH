@@ -3,131 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #333;
-      color: white;
-      padding: 10px;
-    }
-
-    .nav-links span {
-      display: block;
-      color: white;
-    }
-
-    .logout-form button {
-      background: #f44336;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .logout-form button:hover {
-      background-color: #d32f2f;
-    }
-
-    .main-content {
-      display: flex;
-      height: calc(100vh - 50px); /* ajusta según el alto del navbar */
-    }
-
-    .menu-lateral {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 220px;
-      background-color: #f1f1f1;
-      padding: 10px;
-    }
-
-    .menu-lateral .botones {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .menu-lateral button {
-      padding: 10px;
-      border: 1px solid #ccc;
-      background-color: white;
-      cursor: pointer;
-    }
-
-    .menu-lateral button:hover {
-      background-color: #ddd;
-    }
-
-    .logo-container {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .logo-container img {
-      max-width: 100%;
-      max-height: 100px;
-      height: auto;
-      object-fit: contain;
-    }
-
-    .form-section {
-      display: none;
-      padding: 20px;
-      flex-grow: 1;
-      overflow-y: auto;
-    }
-
-    .form-section.active {
-      display: block;
-    }
-
-    .radio-group, .checkbox-group {
-      margin-bottom: 10px;
-      display: flex;
-      gap: 10px;
-    }
-
-    input, select, textarea, button {
-      margin: 5px 0;
-      padding: 6px 10px;
-      font-size: 14px;
-    }
-
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
-    }
-
-    @media (max-width: 768px) {
-      .main-content {
-        flex-direction: column;
-      }
-
-      .menu-lateral {
-        flex-direction: row;
-        flex-wrap: wrap;
-        height: auto;
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .logo-container {
-        display: none;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
 </head>
 <body>
   <!-- BARRA SUPERIOR -->
@@ -143,21 +19,15 @@
 
   {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
-    <div style="padding: 10px;">
+    <div class="alert-container">
       {% for category, message in messages %}
-        <div style="background-color: {% if category == 'success' %}#d4edda{% elif category == 'error' %}#f8d7da{% else %}#fff3cd{% endif %};
-                    color: #000;
-                    border: 1px solid {% if category == 'success' %}#c3e6cb{% elif category == 'error' %}#f5c6cb{% else %}#ffeeba{% endif %};
-                    padding: 10px;
-                    border-radius: 5px;
-                    margin-bottom: 10px;">
+        <div class="alert {{ category }}">
           {{ message }}
         </div>
       {% endfor %}
     </div>
   {% endif %}
-{% endwith %}
-
+  {% endwith %}
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="main-content">
@@ -179,7 +49,7 @@
     </div>
 
     <!-- SECCIONES -->
-    <div class="form-section-container" style="flex-grow: 1;">
+    <div class="form-section-container">
       {% include "secciones/temperatura.html" %}
       {% include "secciones/aceite.html" %}
       {% include "secciones/limpieza.html" %}
@@ -228,12 +98,11 @@
     }
 
     {% if pestaña_activa %}mostrar('{{ pestaña_activa }}');{% else %}mostrar('temperatura');{% endif %}
+
+    setTimeout(() => {
+      const alerts = document.querySelectorAll('.alert');
+      alerts.forEach(a => a.style.display = 'none');
+    }, 4000);
   </script>
-  <script>
-  setTimeout(() => {
-    const alerts = document.querySelectorAll('div[style*="background-color"]');
-    alerts.forEach(a => a.style.display = 'none');
-  }, 4000); // Ocultar después de 4 segundos
-</script>
 </body>
 </html>
