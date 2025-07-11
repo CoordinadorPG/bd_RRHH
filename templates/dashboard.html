@@ -5,8 +5,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
     }
 
     .navbar {
@@ -16,7 +17,6 @@
       color: white;
       padding: 10px;
       align-items: center;
-      justify-content: space-between;
     }
 
     .nav-links {
@@ -50,13 +50,29 @@
       background-color: #d32f2f;
     }
 
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
     .menu-lateral {
-      padding: 10px;
+      width: 200px;
       background-color: #f1f1f1;
+      padding: 15px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .menu-lateral button {
       margin: 5px;
+    }
+
+    .contenido {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
     }
 
     .form-section {
@@ -118,6 +134,7 @@
     </div>
   </div>
 
+  <div class="main-container">
   <div class="menu-lateral">
     {% if 'temperatura' in pestañas %}<button onclick="mostrar('temperatura')">Temperatura</button>{% endif %}
     {% if 'aceite' in pestañas %}<button onclick="mostrar('aceite')">Aceite Quemado</button>{% endif %}
@@ -128,7 +145,8 @@
     {% if rol == 'admin' %}<button onclick="mostrar('crear_usuario')">Crear Usuario</button>{% endif %}
     {% if rol == 'admin' %}<button onclick="mostrar('gestionar_usuarios')">Gestionar Usuarios</button>{% endif %}
   </div>
-
+    
+<div class="contenido">
   {% include "secciones/temperatura.html" %}
   {% include "secciones/aceite.html" %}
   {% include "secciones/limpieza.html" %}
@@ -137,6 +155,8 @@
   {% include "secciones/visualizacion.html" %}
   {% include "secciones/crear_usuario.html" %}
   {% include "secciones/gestionar_usuarios.html" %}
+  </div>
+</div>
 
   <script>
     function togglePassword() {
