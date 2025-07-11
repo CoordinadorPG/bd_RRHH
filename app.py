@@ -26,7 +26,7 @@ def index():
     if rol == 'admin':
         pestañas = []
     elif rol == 'cocina':
-        pestañas = ['temperatura', 'aceite', 'limpieza']
+        pestañas = ['temperatura', 'aceite', 'limpieza', 'bpm', 'recepcion']
     elif rol == 'barra':
         pestañas = ['bpm']
     elif rol == 'bodega':
