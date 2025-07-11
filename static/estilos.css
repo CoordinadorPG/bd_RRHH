@@ -70,7 +70,7 @@ body {
 
 .main-content {
   display: flex;
-  height: calc(100vh - 50px); /* ajusta según el alto del navbar */
+  height: calc(100vh - 50px);
 }
 
 .menu-lateral {
